@@ -9,29 +9,31 @@
 Набор натуральных чисел можно задать непосредственно в коде, например, my_list = [7, 5, 3, 3, 2].
 """
 
-from random import randint
-
 rate_list = [7, 5, 3, 3, 2]
 
 print(rate_list)
-print('-' * len(rate_list) * 3)
 
-it = 0
-while it < 10:
-    new_rate = randint(1, 9)  # лень вводить данные вручную ))
+while True:
+    new_rate = int(input('New rate: '))
+    print(new_rate)
 
-    # !! список не возвращает последний найденный элемент,
-    # !! а надо добавлять после последнего элемента соответствующего рейтинга
-    rate_list.reverse()
-
-    i = 0
+    # значение есть в списке
     if rate_list.count(new_rate) > 0:
-        i = rate_list.index(new_rate)
+        # начальный индекс группы + размер группы = позиция для вставки
+        i = rate_list.index(new_rate) + rate_list.count(new_rate)
+    # значения нет в списке
+    else:
+        i = 0
+        for val in rate_list[:]:
+            # ищем первый элемент, меньше вставляемого
+            # на место которого будет вставлен новый элемент
+            if val < new_rate:
+                break
+            i += 1
+
     rate_list.insert(i, new_rate)
 
-    # добавили новый элемент - восстанавливаем прямой порядок
-    rate_list.reverse()
-
-    print(new_rate)
+    # "красивый" вывод
+    rate_list[i] = f'_{new_rate}_'
     print(rate_list)
-    it += 1
+    rate_list[i] = new_rate

@@ -18,10 +18,15 @@ class TrafficLight:
         self.__colors_conf = colors_conf
 
     def running(self):
+        i = 0
         for it in itt.cycle(self.__colors_conf):
             color = it['color']
             delay = it['delay']
             print(color)
+            if i > 10:
+                break
+            else:
+                i += 1
             time.sleep(delay)
 
 
